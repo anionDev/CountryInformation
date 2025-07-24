@@ -1,0 +1,11 @@
+@startuml CodeUnits-Overview
+title CodeUnits of CountryInformation
+
+[CountryInformation]
+note as CountryInformationNote
+  CountryInformation is a project to provide certain country- and language-information in a way which is well processable programmatically.
+end note
+CountryInformation .. CountryInformationNote
+
+
+@enduml

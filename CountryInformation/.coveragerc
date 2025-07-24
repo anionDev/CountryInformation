@@ -1,0 +1,6 @@
+[run]
+source = .
+omit = ./venv/*,*__init__.py,./CountryInformation/Other/*,./CountryInformationTests/*
+
+[report]
+omit = ./venv/*,*__init__.py,./CountryInformation/Other/*,./CountryInformationTests/*
