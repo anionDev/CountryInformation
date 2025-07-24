@@ -3,31 +3,30 @@ from ..CountryInformation.CountryInformationCore import CountryInformationCore
 
 
 class CountryInformation(unittest.TestCase):
-    testfileprefix = "testfile_"
 
     def test_get_all_countries(self) -> None:
 
         # arrange
         ci: CountryInformationCore = CountryInformationCore()
-        # TODO
 
         # act
-        all_countries = ci.get_all_countries()  # pylint:disable=unused-variable
+        all_countries = ci.get_all_countries()
 
         # assert
-        # TODO
+        assert 0 < len(all_countries)
+        # TODO add more assertions
 
     def test_get_all_languages(self) -> None:
 
         # arrange
         ci: CountryInformationCore = CountryInformationCore()
-        # TODO
 
         # act
-        all_languages = ci.get_all_languages()  # pylint:disable=unused-variable
+        all_languages = ci.get_all_languages()
 
         # assert
-        # TODO
+        assert 0 < len(all_languages)
+        # TODO add more assertions
 
     def test_get_all_common_culture_language_combinations(self) -> None:
 
@@ -36,7 +35,8 @@ class CountryInformation(unittest.TestCase):
         # TODO
 
         # act
-        all_common_culture_language_combinations = ci.get_all_common_culture_language_combinations()  # pylint:disable=unused-variable
+        all_common_culture_language_combinations = ci.get_all_common_culture_language_combinations()
 
         # assert
-        # TODO
+        assert 0 < len(all_common_culture_language_combinations)
+        # TODO add more assertions

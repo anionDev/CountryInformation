@@ -7,7 +7,7 @@ def update_dependencies():
     current_file = str(Path(__file__).absolute())
     repository_folder = GeneralUtilities.resolve_relative_path("../../..", current_file)
     t: TasksForCommonProjectStructure = TasksForCommonProjectStructure()
-    t.update_submodule(repository_folder, "countries")
+    t.update_submodule(repository_folder, "countries", "main", "master", "origin")
 
 
 if __name__ == "__main__":

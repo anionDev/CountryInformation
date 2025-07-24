@@ -1,37 +1,32 @@
 from ScriptCollection.GeneralUtilities import GeneralUtilities
+from .Country import Country
+from .Language import Language
+from .CulturedLanguage import CulturedLanguage
+from .CountryUtilities import CountryUtilities
+from .CacheForCountries import CacheForCountries
+from .CacheForLanguages import CacheForLanguages
 
 version = "1.0.0"
 __version__ = version
 
 
-class Country:
-    name_in_english: str
-    abbreviation: str
-
-
-class Language:
-    name_in_english: str
-    abbreviation: str
-
-
-class CulturedLanguage:
-    language: Language
-    country: Country
-
-    def get_abbreviation(self) -> str:
-        return f"{self.language.abbreviation}-{self.country.abbreviation}"
-
-
 class CountryInformationCore:
+    __country_utilities: CountryUtilities
+    __cache_for_countries: CacheForCountries
+
+    def __init__(self):
+        self.__cache_for_countries = CacheForCountries()
+        self.__cache_for_languages = CacheForLanguages()
+        self.__country_utilities = CountryUtilities(self.__cache_for_countries)
 
     @GeneralUtilities.check_arguments
     def get_all_countries(self) -> list[Country]:
-        return []  # TODO
+        return self.__cache_for_countries.get_all_countries()
 
     @GeneralUtilities.check_arguments
     def get_all_languages(self) -> list[Language]:
-        return []  # TODO
+        return self.__cache_for_languages.get_all_languages()
 
     @GeneralUtilities.check_arguments
     def get_all_common_culture_language_combinations(self) -> list[CulturedLanguage]:
-        return []  # TODO
+        return self.__country_utilities.get_all_common_culture_language_combinations()
