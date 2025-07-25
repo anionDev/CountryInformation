@@ -1,0 +1,3 @@
+[submodule "Other/Resources/Submodules/countries"]
+	path = Other/Resources/Submodules/countries
+	url = https://github.com/mledoze/countries.git
