@@ -3,4 +3,4 @@ disable = C0103, C0111, C0302, C0303, C0207, C0325, I1101, R0903, R0904, R0912, 
 
 [FORMAT]
 max-line-length = 999
-max-statements = 999
+max-statements = 9999

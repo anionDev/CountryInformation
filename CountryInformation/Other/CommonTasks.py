@@ -37,7 +37,7 @@ class LanguageData:
             for language_abbreviation, language_name in dataset["languages"].items():
                 languages.add((language_abbreviation, language_name))
     for language in sorted(languages, key=lambda dataset: dataset):
-        file_content = file_content+f'        if LanguageCodeConversionUtilities().iso639_3_code_is_supported("{language[0]}"): result.append(Language(LanguageCodeConversionUtilities().get_iso639_1_code_from_iso639_3("{language[0]}"), "{language[0]}", "{language[1]}"))\n'
+        file_content = file_content+f'        if LanguageCodeConversionUtilities().iso639_3_code_is_supported("{language[0]}"):\n            result.append(Language(LanguageCodeConversionUtilities().get_iso639_1_code_from_iso639_3("{language[0]}"), "{language[0]}", "{language[1]}"))\n'
     file_content = file_content+"\n        return result\n"
     GeneralUtilities.ensure_file_exists(target_file)
     GeneralUtilities.write_text_to_file(target_file, file_content)
@@ -47,6 +47,7 @@ class LanguageData:
 def generate_countries_file(target_file: str, datasets) -> None:
     file_content = """# The content of this file is generated.
 from .Country import Country
+from .Language import Language
 from .LanguageUtilities import LanguageUtilities
 from .LanguageCodeConversionUtilities import LanguageCodeConversionUtilities
 
@@ -67,7 +68,7 @@ class CountryData:
             assert_not_none(country_code)
             file_content = file_content+f'        languages_for_{country_code}: list[Language] = []\n'
             for language_abbreviation_iso639_3, language_name in dataset["languages"].items():  # pylint:disable=unused-variable
-                file_content = file_content+f'        if LanguageCodeConversionUtilities().iso639_3_code_is_supported("{language_abbreviation_iso639_3}"): language_utilities.get_language_from_code_iso639_3("{language_abbreviation_iso639_3}")\n'
+                file_content = file_content+f'        if LanguageCodeConversionUtilities().iso639_3_code_is_supported("{language_abbreviation_iso639_3}"):\n            languages_for_{country_code}.append(language_utilities.get_language_from_code_iso639_3("{language_abbreviation_iso639_3}"))\n'
             file_content = file_content+f'        result.append(Country("{common_name_in_english}", "{official_name_in_english}", "{country_code}", languages_for_{country_code}))\n        \n'
     file_content = file_content+"\n        return result\n"
     GeneralUtilities.ensure_file_exists(target_file)

@@ -12,3 +12,13 @@ class Country:
         self.official_name_in_english = official_name_in_english
         self.country_code = country_code
         self.languages = languages
+
+    def __eq__(self, other):
+        if other is None:
+            return False
+        if not isinstance(other, Country):
+            return False
+        return self.common_name_in_english == other.common_name_in_english
+
+    def __hash__(self):
+        return hash(self.common_name_in_english)

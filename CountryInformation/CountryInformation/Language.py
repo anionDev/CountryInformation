@@ -8,3 +8,13 @@ class Language:
         self.abbreviation_iso639_1 = abbreviation_iso639_1
         self.abbreviation_iso639_3 = abbreviation_iso639_3
         self.name_in_english = name_in_english
+
+    def __eq__(self, other):
+        if other is None:
+            return False
+        if not isinstance(other, Language):
+            return False
+        return self.name_in_english == other.name_in_english
+
+    def __hash__(self):
+        return hash(self.name_in_english)

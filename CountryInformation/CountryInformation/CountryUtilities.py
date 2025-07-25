@@ -13,8 +13,8 @@ class CountryUtilities:
 
     @GeneralUtilities.check_arguments
     def get_all_common_culture_language_combinations(self) -> list[CulturedLanguage]:
-        result: list[CulturedLanguage] = []
+        result: set[CulturedLanguage] = set()
         for country in self.__cache_for_countries.get_all_countries():
             for language in country.languages:
-                result.append(CulturedLanguage(language, country))
-        return result
+                result.add(CulturedLanguage(language, country))
+        return sorted(result, key=lambda item: item.get_abbreviation())

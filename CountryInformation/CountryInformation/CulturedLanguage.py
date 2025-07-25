@@ -10,5 +10,15 @@ class CulturedLanguage:
         self.language = language
         self.country = country
 
+    def __eq__(self, other):
+        if other is None:
+            return False
+        if not isinstance(other, CulturedLanguage):
+            return False
+        return self.language == other.language and self.country == other.country
+
+    def __hash__(self):
+        return hash((self.language, self.country))
+
     def get_abbreviation(self) -> str:
         return f"{self.language.abbreviation_iso639_1}-{self.country.country_code}"
