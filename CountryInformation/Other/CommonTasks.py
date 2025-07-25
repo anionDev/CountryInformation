@@ -77,7 +77,7 @@ class CountryData:
 
 @GeneralUtilities.check_arguments
 def generate_python_data_files(codeunit_folder: str) -> None:
-    source_folder = GeneralUtilities.resolve_relative_path("./Other/Resources/Data", codeunit_folder)
+    source_folder = GeneralUtilities.resolve_relative_path("./Other/Resources/RawData", codeunit_folder)
     source_file = os.path.join(source_folder, "Countries.json")
     data = json.loads(GeneralUtilities.read_text_from_file(source_file))
     python_folder: str = os.path.join(codeunit_folder, "CountryInformation")
@@ -90,7 +90,7 @@ def get_data_from_submodule(codeunit_folder: str) -> None:
     # it is ok to do that in this script and not in UpdateDependencies.py because after updating the submodule the codeunits will bebuilded and then this will be executed anyway. And without an updated submodule this function does not cause any change.
     repository_folder = GeneralUtilities.resolve_relative_path("..", codeunit_folder)
     upstream_folder = GeneralUtilities.resolve_relative_path("Other/Resources/Submodules/countries", repository_folder)
-    target_folder = GeneralUtilities.resolve_relative_path("./Other/Resources/Data", codeunit_folder)
+    target_folder = GeneralUtilities.resolve_relative_path("./Other/Resources/RawData", codeunit_folder)
     GeneralUtilities.ensure_folder_exists_and_is_empty(target_folder)
     src_file = GeneralUtilities.resolve_relative_path("./dist/countries.json", upstream_folder)
     GeneralUtilities.assert_file_exists(src_file)

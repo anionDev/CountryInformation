@@ -48,7 +48,7 @@ class CountryInformation(unittest.TestCase):
 
         ci: CountryInformationCore = CountryInformationCore()
         current_folder: str = os.path.dirname(__file__)
-        target_folder = GeneralUtilities.resolve_relative_path("../Other/Artifacts/Data", current_folder)
+        target_folder = GeneralUtilities.resolve_relative_path("../Other/Resources/Data", current_folder)
         GeneralUtilities.ensure_folder_exists_and_is_empty(target_folder)
 
         all_countries: list[Country] = ci.get_all_countries()
@@ -82,3 +82,7 @@ class CountryInformation(unittest.TestCase):
             entry: str = f"{common_culture_language_combination.get_abbreviation()};{common_culture_language_combination.language.abbreviation_iso639_1}"
             languages_with_fallback_language_entries.add(entry)
         GeneralUtilities.write_lines_to_file(languages_with_fallback_language_file, sorted(languages_with_fallback_language_entries, key=lambda entry: entry))
+
+        artefacts_folder = GeneralUtilities.resolve_relative_path("../Other/Artifacts/Data", current_folder)
+        GeneralUtilities.ensure_folder_exists_and_is_empty(artefacts_folder)
+        GeneralUtilities.copy_content_of_folder(target_folder, artefacts_folder)
