@@ -13,6 +13,10 @@ class Country:
         self.country_code = country_code
         self.languages = languages
 
+    def __str__(self):
+        languages = ", ".join([str(la) for la in self.languages])
+        return f"{self.common_name_in_english} ({self.official_name_in_english}; {self.country_code}; {languages})"
+
     def __eq__(self, other):
         if other is None:
             return False
