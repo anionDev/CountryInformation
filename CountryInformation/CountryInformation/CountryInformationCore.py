@@ -6,7 +6,7 @@ from .CountryUtilities import CountryUtilities
 from .CacheForCountries import CacheForCountries
 from .CacheForLanguages import CacheForLanguages
 
-version = "1.0.6"
+version = "1.0.7"
 __version__ = version
 
 
