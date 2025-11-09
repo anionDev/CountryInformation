@@ -203,8 +203,6 @@ class LanguageData:
         if LanguageCodeConversionUtilities().iso639_3_code_is_supported("roh"):
             result.append(Language(LanguageCodeConversionUtilities().get_iso639_1_code_from_iso639_3("roh"), "roh", "Romansh"))
         if LanguageCodeConversionUtilities().iso639_3_code_is_supported("ron"):
-            result.append(Language(LanguageCodeConversionUtilities().get_iso639_1_code_from_iso639_3("ron"), "ron", "Moldavian"))
-        if LanguageCodeConversionUtilities().iso639_3_code_is_supported("ron"):
             result.append(Language(LanguageCodeConversionUtilities().get_iso639_1_code_from_iso639_3("ron"), "ron", "Romanian"))
         if LanguageCodeConversionUtilities().iso639_3_code_is_supported("run"):
             result.append(Language(LanguageCodeConversionUtilities().get_iso639_1_code_from_iso639_3("run"), "run", "Kirundi"))

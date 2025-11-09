@@ -19,6 +19,12 @@ def format_json_file(json_file: str) -> None:
 
 
 @GeneralUtilities.check_arguments
+def language_is_ignored(dataset) -> None:
+    if dataset["name"]["common"]=="Moldova":
+        return True#ignored because it has the same language-code as romanian so it would result in non-unique ISO639-abbreviations
+    return False
+
+@GeneralUtilities.check_arguments
 def generate_language_file(target_file: str, datasets) -> None:
     file_content = """# The content of this file is generated.
 from .Language import Language
@@ -33,7 +39,8 @@ class LanguageData:
     for dataset in datasets:
         if dataset["independent"]:
             for language_abbreviation, language_name in dataset["languages"].items():
-                languages.add((language_abbreviation, language_name))
+                if not language_is_ignored(dataset):
+                    languages.add((language_abbreviation, language_name))
     for language in sorted(languages, key=lambda dataset: dataset):
         file_content = file_content+f'        if LanguageCodeConversionUtilities().iso639_3_code_is_supported("{language[0]}"):\n            result.append(Language(LanguageCodeConversionUtilities().get_iso639_1_code_from_iso639_3("{language[0]}"), "{language[0]}", "{language[1]}"))\n'
     file_content = file_content+"\n        return result\n"
@@ -74,10 +81,25 @@ class CountryData:
 
 
 @GeneralUtilities.check_arguments
+def is_ignored(data)->bool:
+    if data["name"]["common"]=="Moldova":
+        return True#ignored because it has the same language-code as romanian so it would result in non-unique ISO639-abbreviations
+    return False
+
+@GeneralUtilities.check_arguments
+def filter(data:list)->list:
+    result=[]
+    for item in data:
+        if not is_ignored(item):
+            result.append(item)
+    return result
+
+@GeneralUtilities.check_arguments
 def generate_python_data_files(codeunit_folder: str) -> None:
     source_folder = GeneralUtilities.resolve_relative_path("./Other/Resources/RawData", codeunit_folder)
     source_file = os.path.join(source_folder, "Countries.json")
     data = json.loads(GeneralUtilities.read_text_from_file(source_file))
+    #data=filter(data)
     python_folder: str = os.path.join(codeunit_folder, "CountryInformation")
     generate_language_file(os.path.join(python_folder, "LanguageData.py"), data)
     generate_countries_file(os.path.join(python_folder, "CountryData.py"), data)
