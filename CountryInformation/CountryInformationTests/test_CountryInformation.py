@@ -44,6 +44,21 @@ class CountryInformation(unittest.TestCase):
         assert 0 < len(all_common_culture_language_combinations)
         # TODO add more assertions
 
+    def __assert_no_duplicates(self,objects:set[str],attribute_name:str):
+        seen = set()
+        for obj in objects:
+            if obj in seen:
+                raise ValueError(f"Duplicate found for attribute {attribute_name}: {obj}")
+            seen.add(obj)
+
+    def __assert_no_duplicated_country_entries(self,all_countries:list[Country]):
+        self.__assert_no_duplicates([x.common_name_in_english for x in all_countries],"common_name_in_english")
+        self.__assert_no_duplicates([x.country_code for x in all_countries],"country_code")
+        self.__assert_no_duplicates([x.official_name_in_english for x in all_countries],"official_name_in_english")
+
+    def __assert_no_duplicated_language_entries(self,all_languages:list[Language]):
+        self.__assert_no_duplicates([x.abbreviation_iso639_3 for x in all_languages],"abbreviation_iso639_3")
+
     def test_generate_artifacts(self) -> None:  # just to see in the artifacts which data are available in the library
 
         ci: CountryInformationCore = CountryInformationCore()
@@ -56,12 +71,14 @@ class CountryInformation(unittest.TestCase):
         GeneralUtilities.ensure_file_exists(countries_file)
         countries_lines = [f"{country.common_name_in_english};{country.country_code};{country.official_name_in_english}" for country in all_countries]
         GeneralUtilities.write_lines_to_file(countries_file, countries_lines)
+        self.__assert_no_duplicated_country_entries(all_countries)
 
         all_languages: list[Language] = ci.get_all_languages()
         languages_file = os.path.join(target_folder, "Languages.csv")
         GeneralUtilities.ensure_file_exists(languages_file)
         language_lines = [f"{language.name_in_english};{language.abbreviation_iso639_1};{language.abbreviation_iso639_3}" for language in all_languages]
         GeneralUtilities.write_lines_to_file(languages_file, language_lines)
+        self.__assert_no_duplicated_language_entries(all_languages)
 
         all_common_culture_language_combinations = ci.get_all_common_culture_language_combinations()
         common_culture_language_combinations_file = os.path.join(target_folder, "CommonCultureLanguageCombinations.csv")

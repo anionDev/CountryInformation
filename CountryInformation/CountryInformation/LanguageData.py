@@ -226,8 +226,6 @@ class LanguageData:
             result.append(Language(LanguageCodeConversionUtilities().get_iso639_1_code_from_iso639_3("som"), "som", "Somali"))
         if LanguageCodeConversionUtilities().iso639_3_code_is_supported("sot"):
             result.append(Language(LanguageCodeConversionUtilities().get_iso639_1_code_from_iso639_3("sot"), "sot", "Sotho"))
-        if LanguageCodeConversionUtilities().iso639_3_code_is_supported("sot"):
-            result.append(Language(LanguageCodeConversionUtilities().get_iso639_1_code_from_iso639_3("sot"), "sot", "Southern Sotho"))
         if LanguageCodeConversionUtilities().iso639_3_code_is_supported("spa"):
             result.append(Language(LanguageCodeConversionUtilities().get_iso639_1_code_from_iso639_3("spa"), "spa", "Spanish"))
         if LanguageCodeConversionUtilities().iso639_3_code_is_supported("sqi"):
