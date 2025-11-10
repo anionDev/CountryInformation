@@ -19,9 +19,11 @@ def format_json_file(json_file: str) -> None:
 
 
 @GeneralUtilities.check_arguments
-def language_is_ignored(dataset) -> None:
-    if dataset["name"]["common"]=="Moldova":
+def language_is_ignored(language_name:str) -> None:
+    if language_name=="Moldavian":
         return True#ignored because it has the same language-code as romanian so it would result in non-unique ISO639-abbreviations
+    if language_name=="Southern Sotho":
+        return True#ignored because it is the same as Sotho
     return False
 
 @GeneralUtilities.check_arguments
@@ -39,8 +41,8 @@ class LanguageData:
     for dataset in datasets:
         if dataset["independent"]:
             for language_abbreviation, language_name in dataset["languages"].items():
-                if not language_is_ignored(dataset):
-                    languages.add((language_abbreviation, language_name))
+                if not language_is_ignored(language_name):
+                    languages.add((language_abbreviation,language_name))
     for language in sorted(languages, key=lambda dataset: dataset):
         file_content = file_content+f'        if LanguageCodeConversionUtilities().iso639_3_code_is_supported("{language[0]}"):\n            result.append(Language(LanguageCodeConversionUtilities().get_iso639_1_code_from_iso639_3("{language[0]}"), "{language[0]}", "{language[1]}"))\n'
     file_content = file_content+"\n        return result\n"
